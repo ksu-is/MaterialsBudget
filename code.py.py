@@ -1,27 +1,24 @@
-def calculate_cost(material, price_per_sqft, square_feet):
-    total_cost = price_per_sqft * square_feet
-    return total_cost
-
 def main():
-    print("Welcome to the Home Project Cost Calculator!")
-    print("Please provide the following information.")
+    config = read_config()
 
-    # Lumber
-    lumber_price_per_sqft = float(input("Enter the average price of lumber per square foot for the homeowner: $"))
-    lumber_square_feet = float(input("How many square feet of lumber do you need? "))
+    use_current_prices = config.get("use_current_prices", False)
 
-    # Tile
-    tile_price_per_sqft = float(input("Enter the average price of tile per square foot for the homeowner: $"))
-    tile_square_feet = float(input("How many square feet of tile do you need? "))
+    if use_current_prices:
+        current_prices = config.get("prices", {})
 
-    # Steel
-    steel_price_per_sqft = float(input("Enter the average price of steel per square foot for the homeowner: $"))
-    steel_square_feet = float(input("How many square feet of steel do you need? "))
+        # Assign current prices to material variables
+        lumber_price_per_sqft = current_prices.get("lumber", 0.0)
+        tile_price_per_sqft = current_prices.get("tile", 0.0)
+        steel_price_per_sqft = current_prices.get("steel", 0.0)
+        stone_price_per_sqft = current_prices.get("stone", 0.0)
+    else:
+        # Ask the user to input custom parameters
+        lumber_price_per_sqft = float(input("Enter the average price of lumber per square foot for the homeowner: $"))
+        tile_price_per_sqft = float(input("Enter the average price of tile per square foot for the homeowner: $"))
+        steel_price_per_sqft = float(input("Enter the average price of steel per square foot for the homeowner: $"))
+        stone_price_per_sqft = float(input("Enter the average price of stone per square foot for the homeowner: $"))
 
-    # Stone
-    stone_price_per_sqft = float(input("Enter the average price of stone per square foot for the homeowner: $"))
-    stone_square_feet = float(input("How many square feet of stone do you need? "))
-
+    # Rest of the code remains the same...
     # Calculate individual costs
     lumber_cost = calculate_cost("Lumber", lumber_price_per_sqft, lumber_square_feet)
     tile_cost = calculate_cost("Tile", tile_price_per_sqft, tile_square_feet)
@@ -39,6 +36,3 @@ def main():
     print(f"Stone: ${stone_cost:.2f}")
 
     print("\nTotal project cost: ${:.2f}".format(total_cost))
-
-if __name__ == "__main__":
-    main()
