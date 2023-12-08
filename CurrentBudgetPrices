@@ -1,0 +1,9 @@
+{
+  "use_current_prices": true,
+  "prices": {
+    "lumber": 2.5,
+    "tile": 3.0,
+    "steel": 5.0,
+    "stone": 4.0
+  }
+}
